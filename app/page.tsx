@@ -22,17 +22,15 @@ const featuredVideos = [
     id: "v1",
     title: "Easy Bits with Lana — Corporate & Legal Masterclass",
     tag: "CAC REGISTRATION & COMPLIANCE",
-    youtubeId: "dQw4w9WgXcQ", // YouTube Video ID
     embedUrl: "https://www.youtube-nocookie.com/embed?listType=user_uploads&list=EasyBitswithLana&autoplay=1&rel=0",
-    poster: "https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg",
+    poster: "/images/consultation.jpg",
   },
   {
     id: "v2",
     title: "Structuring Your Business in Nigeria with Practical Clarity",
     tag: "POST-INCORPORATION & ADVISORY",
-    youtubeId: "3tmd-ClpJxA",
     embedUrl: "https://www.youtube-nocookie.com/embed?listType=user_uploads&list=EasyBitswithLana&index=2&autoplay=1&rel=0",
-    poster: "https://img.youtube.com/vi/3tmd-ClpJxA/hqdefault.jpg",
+    poster: "/images/boardroom.jpg",
   },
 ];
 
