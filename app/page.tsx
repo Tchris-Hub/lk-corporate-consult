@@ -1,69 +1,35 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
-}
+import Image from "next/image";
+import { useState } from "react";
+import { ArrowDownRight, ArrowRight, AtSign, BadgeCheck, BookOpen, Building2, ChevronRight, CirclePlay, Copyright, FileCheck2, Landmark, Menu, MoveUpRight, Play, Scale, Store, X } from "lucide-react";
+import { LazyMotion, domAnimation, m, useReducedMotion } from "motion/react";
+
+const Youtube = CirclePlay;
+const Instagram = AtSign;
+
+const services = [
+  { icon: Building2, eyebrow: "01 — ESTABLISH", title: "Legal Entity Registration", copy: "Business Names, Limited Liability Companies, NGOs and tailored incorporation support." },
+  { icon: FileCheck2, eyebrow: "02 — MAINTAIN", title: "Post-Incorporation Services", copy: "Annual Returns, director and shareholder changes, share capital and statutory filings." },
+  { icon: Copyright, eyebrow: "03 — PROTECT", title: "Intellectual Property", copy: "Trademark, copyright and patent support that puts your ideas on firmer ground." },
+  { icon: Landmark, eyebrow: "04 — COMPLY", title: "SCUML & Export Licenses", copy: "Regulatory compliance and trade approvals for businesses ready to expand." },
+  { icon: Scale, eyebrow: "05 — ADVISE", title: "Legal & Business Consultation", copy: "Clear advisory, risk management and operational structuring for decisive leaders." },
+  { icon: Store, eyebrow: "06 — EQUIP", title: "Digital & Store Resources", copy: "Practical guides and digital business tools built for founders doing the work." },
+];
+const insights = [
+  { category: "CAC Compliance", title: "Annual Returns: the quiet filing that keeps your company in good standing.", copy: "A clear guide to timing, documents and what to expect when keeping your entity compliant." },
+  { category: "Business Setup", title: "Business Name or Limited Company: choosing the right foundation.", copy: "Understand the practical distinctions before your idea becomes an official business." },
+  { category: "IP Protection", title: "Your name is an asset. Here is when to protect it with a trademark.", copy: "A founder-friendly overview of what a trademark can protect and when to file." },
+];
+function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) { const reduce = useReducedMotion(); return <m.div className={className} initial={reduce ? false : { opacity: 0, y: 26 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.18 }} transition={{ duration: 0.7, delay, ease: [0.16, 1, 0.3, 1] }}>{children}</m.div>; }
+function VideoFacade() { const [playing, setPlaying] = useState(false); return <div className="relative aspect-video overflow-hidden rounded-[1.7rem] bg-[#0a162c] shadow-2xl shadow-[#1b2a4a]/25">{playing ? <iframe className="absolute inset-0 h-full w-full" src="https://www.youtube-nocookie.com/embed?listType=user_uploads&list=EasyBitswithLana&autoplay=1&rel=0" title="Easy Bits with Lana on YouTube" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen /> : <><Image src="/images/consultation.jpg" alt="A professional consultation at LK Corporate Consult" fill sizes="(max-width: 1024px) 100vw, 58vw" className="object-cover object-[center_48%] opacity-85" /><div className="absolute inset-0 bg-gradient-to-r from-[#09152a]/85 via-[#09152a]/15 to-transparent" /><button onClick={() => setPlaying(true)} aria-label="Play Easy Bits with Lana video" className="group absolute inset-0 flex items-center justify-center"><span className="flex size-20 items-center justify-center rounded-full bg-[#d4af37] text-[#172845] shadow-xl transition duration-300 group-hover:scale-110"><Play fill="currentColor" className="ml-1 size-7" /></span></button><div className="absolute bottom-6 left-6 right-6 flex items-end justify-between text-white"><div><p className="mb-2 text-xs font-bold tracking-[0.18em] text-[#f8d771]">EASY BITS WITH LANA</p><p className="font-serif text-xl">Business clarity, made practical.</p></div><span className="hidden rounded-full border border-white/30 bg-white/10 px-3 py-1.5 text-xs backdrop-blur sm:block">Watch channel</span></div></>}</div>; }
+
+export default function Home() { const [menuOpen, setMenuOpen] = useState(false); return <LazyMotion features={domAnimation}><main className="overflow-hidden bg-[#f7f4ed] text-[#1b2a4a]">
+  <header className="relative z-30 mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:px-10"><a href="#home" className="flex items-center gap-3" aria-label="LK Corporate Consult home"><span className="grid size-10 place-items-center rounded-full bg-[#1b2a4a] font-serif text-lg font-bold text-[#d4af37]">LK</span><span className="leading-tight"><strong className="block font-serif text-base tracking-tight">LK Corporate</strong><span className="text-[10px] font-bold tracking-[0.19em] text-[#647086]">CONSULT</span></span></a><nav className="hidden items-center gap-7 text-sm font-semibold text-[#42516b] lg:flex">{["Home", "About", "Services", "Insights", "Contact"].map((item) => <a className="transition hover:text-[#b18a17]" href={`#${item.toLowerCase()}`} key={item}>{item}</a>)}</nav><a href="#contact" className="hidden rounded-full bg-[#d4af37] px-5 py-3 text-sm font-bold text-[#1b2a4a] transition hover:-translate-y-0.5 hover:bg-[#e1c25f] lg:block">Book Consultation</a><button onClick={() => setMenuOpen(!menuOpen)} className="grid size-11 place-items-center rounded-full border border-[#1b2a4a]/15 lg:hidden" aria-label="Toggle navigation">{menuOpen ? <X /> : <Menu />}</button>{menuOpen && <nav className="absolute left-5 right-5 top-[76px] rounded-3xl border border-[#1b2a4a]/10 bg-[#fcfaf5] p-5 shadow-xl lg:hidden">{["Home", "About", "Services", "Insights", "Contact"].map((item) => <a onClick={() => setMenuOpen(false)} className="block border-b border-[#1b2a4a]/10 py-3 font-semibold last:border-0" href={`#${item.toLowerCase()}`} key={item}>{item}</a>)}<a href="#contact" className="mt-3 block rounded-full bg-[#d4af37] px-4 py-3 text-center text-sm font-bold">Book Consultation</a></nav>}</header>
+  <section id="home" className="relative mx-auto max-w-7xl px-5 pb-14 pt-10 sm:px-8 sm:pb-20 lg:px-10 lg:pt-20"><div className="absolute -right-28 top-0 size-[32rem] rounded-full border border-[#d4af37]/30" /><div className="absolute -right-14 top-14 size-[25rem] rounded-full border border-[#d4af37]/20" /><div className="relative grid items-end gap-12 lg:grid-cols-[1.08fr_.92fr]"><div><Reveal><p className="mb-7 flex items-center gap-2 text-xs font-bold tracking-[0.17em] text-[#9e7a16]"><span className="h-px w-8 bg-[#d4af37]" />CORPORATE ADVISORY · ABUJA, NIGERIA</p></Reveal><Reveal delay={0.08}><h1 className="max-w-3xl font-serif text-5xl leading-[.98] tracking-[-0.045em] text-[#172845] sm:text-6xl lg:text-7xl">Simplifying corporate compliance.<br /><em className="font-normal text-[#a47c10]">Supporting business growth.</em></h1></Reveal><Reveal delay={0.16}><p className="mt-7 max-w-xl text-base leading-8 text-[#536078] sm:text-lg">Expert corporate, CAC regulatory, legal, and business advisory services tailored for Nigerian entrepreneurs and growing companies.</p><div className="mt-9 flex flex-wrap gap-3"><a href="#contact" className="group inline-flex items-center gap-2 rounded-full bg-[#d4af37] px-6 py-3.5 font-bold text-[#172845] transition hover:-translate-y-0.5 hover:bg-[#e1c25f]">Book a Consultation <ArrowRight className="size-4 transition group-hover:translate-x-1" /></a><a href="#services" className="inline-flex items-center gap-2 rounded-full border border-[#1b2a4a]/40 px-6 py-3.5 font-bold transition hover:border-[#1b2a4a] hover:bg-white/60">Explore Services <ArrowDownRight className="size-4" /></a></div></Reveal></div><Reveal delay={0.18} className="relative mx-auto w-full max-w-md lg:max-w-none"><div className="relative aspect-[.83] overflow-hidden rounded-t-[12rem] rounded-bl-[2rem] rounded-br-[2rem] bg-[#d9d4c7]"><Image src="/images/boardroom.jpg" alt="LK Corporate Consult advisory meeting" fill priority sizes="(max-width: 1024px) 90vw, 40vw" className="object-cover object-[58%_center]" /><div className="absolute inset-0 bg-gradient-to-t from-[#1b2a4a]/60 via-transparent to-transparent" /></div><div className="absolute -bottom-6 -left-3 rounded-2xl border border-white/60 bg-[#fcfaf5]/95 p-4 shadow-xl backdrop-blur sm:-left-8"><div className="flex items-center gap-3"><BadgeCheck className="size-8 text-[#b38b18]" /><p className="max-w-[11rem] text-xs font-semibold leading-5">Trusted across <strong>200+ CAC registrations</strong> & post-incorporation applications.</p></div></div></Reveal></div></section>
+  <section id="about" className="bg-[#172845] px-5 py-20 text-[#f7f4ed] sm:px-8 lg:px-10 lg:py-28"><div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.85fr_1.15fr]"><Reveal><p className="text-xs font-bold tracking-[.2em] text-[#d4af37]">THE FIRM</p><h2 className="mt-5 max-w-sm font-serif text-4xl leading-tight sm:text-5xl">Guidance that makes the complex feel clear.</h2></Reveal><Reveal delay={0.1}><p className="max-w-2xl text-lg leading-8 text-[#d7dce5]">Built on a track record of thoughtful, client-first corporate guidance, LK Corporate Consult is the next chapter of Sparkle Legal Consult. We pair technical detail with plain-speaking advice, giving founders the confidence to move from ambition to action.</p><div className="mt-12 grid gap-4 sm:grid-cols-3">{[["01", "Professionalism"], ["02", "Integrity"], ["03", "Efficiency"]].map(([number, label]) => <div className="border-t border-[#d4af37]/60 pt-4" key={label}><span className="text-xs font-bold text-[#d4af37]">{number}</span><p className="mt-6 font-serif text-2xl">{label}</p></div>)}</div></Reveal></div></section>
+  <section id="services" className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10 lg:py-28"><Reveal className="flex flex-col justify-between gap-7 md:flex-row md:items-end"><div><p className="text-xs font-bold tracking-[.2em] text-[#9e7a16]">WHAT WE DO</p><h2 className="mt-4 max-w-2xl font-serif text-4xl leading-tight tracking-tight sm:text-5xl">The right expertise, at every stage of your business.</h2></div><p className="max-w-xs text-sm leading-6 text-[#5d687b]">From first registration to the filings that keep you moving, our work is built around momentum.</p></Reveal><div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{services.map(({ icon: Icon, eyebrow, title, copy }, i) => <Reveal delay={(i % 3) * .07} key={title}><article className="group h-full rounded-[1.5rem] border border-[#1b2a4a]/10 bg-[#fcfaf5] p-6 transition duration-300 hover:-translate-y-1 hover:border-[#d4af37]/60 hover:shadow-xl hover:shadow-[#1b2a4a]/10"><div className="flex items-start justify-between"><span className="grid size-12 place-items-center rounded-2xl bg-[#e9e2d2] text-[#1b2a4a]"><Icon className="size-5" /></span><MoveUpRight className="size-5 text-[#b38b18] opacity-0 transition group-hover:opacity-100" /></div><p className="mt-9 text-[10px] font-bold tracking-[.15em] text-[#9e7a16]">{eyebrow}</p><h3 className="mt-3 font-serif text-2xl">{title}</h3><p className="mt-3 text-sm leading-6 text-[#58647a]">{copy}</p></article></Reveal>)}</div></section>
+  <section className="border-y border-[#1b2a4a]/10 bg-[#e9e2d2] px-5 py-20 sm:px-8 lg:px-10 lg:py-28"><div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[.77fr_1.23fr]"><Reveal><p className="text-xs font-bold tracking-[.2em] text-[#9e7a16]">MEDIA & ECOSYSTEM</p><h2 className="mt-5 font-serif text-4xl leading-tight sm:text-5xl">Advice that travels further than the meeting room.</h2><p className="mt-6 max-w-md leading-7 text-[#566177]">Explore concise, founder-first lessons on CAC registration, legal compliance and building with clarity on <strong>Easy Bits with Lana.</strong></p><div className="mt-8 flex flex-wrap gap-3"><a className="inline-flex items-center gap-2 rounded-full bg-[#172845] px-5 py-3 font-bold text-white transition hover:bg-[#263b63]" href="https://www.youtube.com/@EasyBitswithLana" target="_blank" rel="noreferrer"><Youtube className="size-4" /> Visit YouTube</a><a className="inline-flex items-center gap-2 rounded-full border border-[#1b2a4a]/25 px-5 py-3 font-bold transition hover:bg-white/50" href="https://selar.com/m/easybitswithlana" target="_blank" rel="noreferrer"><Store className="size-4" /> Explore Selar store</a></div></Reveal><Reveal delay={.12}><VideoFacade /></Reveal></div></section>
+  <section id="insights" className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10 lg:py-28"><Reveal><p className="text-xs font-bold tracking-[.2em] text-[#9e7a16]">INSIGHTS</p><div className="mt-4 flex flex-col justify-between gap-4 sm:flex-row sm:items-end"><h2 className="max-w-2xl font-serif text-4xl leading-tight sm:text-5xl">Latest Regulatory Insights & Business Guides</h2><a href="#contact" className="inline-flex items-center gap-1 font-bold text-[#1b2a4a] hover:text-[#9e7a16]">View all insights <ChevronRight className="size-4" /></a></div></Reveal><div className="mt-12 grid gap-5 lg:grid-cols-3">{insights.map((insight, i) => <Reveal delay={i * .09} key={insight.title}><article className="group flex h-full flex-col rounded-[1.5rem] bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-xl hover:shadow-[#1b2a4a]/10"><span className="w-fit rounded-full bg-[#e9e2d2] px-3 py-1 text-[10px] font-bold tracking-[.1em] text-[#80620f]">{insight.category}</span><h3 className="mt-6 font-serif text-2xl leading-snug">{insight.title}</h3><p className="mt-4 text-sm leading-6 text-[#5b667a]">{insight.copy}</p><a href="#contact" className="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#1b2a4a]">Read Article <ArrowRight className="size-4 transition group-hover:translate-x-1" /></a></article></Reveal>)}</div></section>
+  <footer id="contact" className="bg-[#172845] px-5 pb-7 pt-16 text-[#f7f4ed] sm:px-8 lg:px-10"><div className="mx-auto max-w-7xl"><div className="grid gap-12 border-b border-white/15 pb-14 lg:grid-cols-[1.25fr_.75fr_.75fr]"><Reveal><p className="text-xs font-bold tracking-[.2em] text-[#d4af37]">LET’S MAKE IT OFFICIAL</p><h2 className="mt-5 max-w-lg font-serif text-4xl leading-tight sm:text-5xl">Your next move deserves a clear path forward.</h2><a href="https://wa.me/2347034930571" className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#d4af37] px-6 py-3.5 font-bold text-[#172845] transition hover:bg-[#e1c25f]">Book a Consultation <ArrowRight className="size-4" /></a></Reveal><div><p className="text-xs font-bold tracking-[.16em] text-[#d4af37]">CONTACT</p><a href="tel:07034930571" className="mt-5 block font-serif text-xl hover:text-[#d4af37]">07034930571</a><a href="mailto:lkcorporateconsult@gmail.com" className="mt-3 block break-all text-sm text-[#d7dce5] hover:text-[#d4af37]">lkcorporateconsult@gmail.com</a></div><div><p className="text-xs font-bold tracking-[.16em] text-[#d4af37]">OFFICE</p><address className="mt-5 max-w-52 text-sm not-italic leading-7 text-[#d7dce5]">No 12 Army Post Housing Estate, Kurudu, Abuja, FCT, Nigeria.</address></div></div><div className="flex flex-col justify-between gap-5 py-7 text-xs text-[#aeb7c6] sm:flex-row sm:items-center"><p>© {new Date().getFullYear()} LK Corporate Consult. All rights reserved.</p><div className="flex items-center gap-5"><a className="hover:text-[#d4af37]" href="https://instagram.com/easyb_withlana" target="_blank" rel="noreferrer"><Instagram className="size-4" /><span className="sr-only">Instagram</span></a><a className="hover:text-[#d4af37]" href="https://www.youtube.com/@EasyBitswithLana" target="_blank" rel="noreferrer"><Youtube className="size-4" /><span className="sr-only">YouTube</span></a><a className="hover:text-[#d4af37]" href="https://selar.com/m/easybitswithlana" target="_blank" rel="noreferrer"><BookOpen className="size-4" /><span className="sr-only">Selar</span></a></div></div></div></footer>
+</main></LazyMotion>; }

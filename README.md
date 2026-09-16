@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# LK Corporate Consult
 
-## Getting Started
+Premium, responsive corporate advisory site built with Next.js 16, React 19, Tailwind CSS 4, Motion and Lucide.
 
-First, run the development server:
+## Run locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment on Netlify
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Connect this folder to a Netlify site and use the detected Next.js settings. Netlify's Next.js runtime handles the App Router build; use `npm run build` as the build command. No raw video is stored in this project.
 
-## Learn More
+The media section uses a local optimized image facade. The privacy-enhanced YouTube player is added only after the visitor presses Play, so neither player scripts nor video bytes are part of the initial page visit. Keep future videos on YouTube rather than adding video files to `public/`.
 
-To learn more about Next.js, take a look at the following resources:
+## Performance decisions
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Static page generation and `next/image` responsive image optimization.
+- Motion is limited to composited opacity/transform reveals and respects `prefers-reduced-motion`.
+- `LazyMotion` loads the small DOM animation feature set rather than the full engine.
+- The YouTube iframe uses `youtube-nocookie.com`, `loading="lazy"`, and only mounts on visitor intent.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Publishing system: Neon + Prisma
 
-## Deploy on Vercel
+The public knowledge centre is available at `/blog`, with individual SEO-ready articles at `/blog/[slug]`. The owner-only publishing desk is at `/admin`; it supports drafting, publishing, editing and deleting articles. Newsletter subscribers are stored separately and require an explicit opt-in.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Create a Neon project and copy its pooled connection string and direct connection string.
+2. Copy `.env.example` to `.env`, then supply `DATABASE_URL`, `DIRECT_URL`, `AUTH_SECRET`, `ADMIN_EMAIL`, and `ADMIN_PASSWORD_HASH`.
+3. Run `npm run admin:hash -- "a-long-unique-password"` and place the resulting value in `ADMIN_PASSWORD_HASH`.
+4. Run `npm run db:migrate -- --name init` to create the tables in Neon.
+5. Add the same environment variables to Netlify and deploy.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Use the pooled URL for `DATABASE_URL` in the app and the direct URL for migrations. The project deliberately pins Prisma ORM 7.10.0, the current stable GA version, rather than the Prisma 8 release candidate.
