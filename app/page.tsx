@@ -1,4 +1,5 @@
 "use client";
+/* eslint-disable @next/next/no-html-link-for-pages */
 
 import Image from "next/image";
 import { useState, useEffect } from "react";
@@ -19,18 +20,25 @@ const services = [
 
 const featuredVideos = [
   {
-    id: "v1",
-    title: "Easy Bits with Lana — Corporate & Legal Masterclass",
-    tag: "CAC REGISTRATION & COMPLIANCE",
-    embedUrl: "https://www.youtube-nocookie.com/embed?listType=user_uploads&list=EasyBitswithLana&autoplay=1&rel=0",
-    poster: "/images/consultation.jpg",
+    id: "E6_u9gr2s9s",
+    title: "The Most Misunderstood Business Term: Share Capital",
+    tag: "BUSINESS STRUCTURING",
+    embedUrl: "https://www.youtube-nocookie.com/embed/E6_u9gr2s9s?autoplay=1&rel=0",
+    poster: "https://i.ytimg.com/vi/E6_u9gr2s9s/hqdefault.jpg",
   },
   {
-    id: "v2",
-    title: "Structuring Your Business in Nigeria with Practical Clarity",
-    tag: "POST-INCORPORATION & ADVISORY",
-    embedUrl: "https://www.youtube-nocookie.com/embed?listType=user_uploads&list=EasyBitswithLana&index=2&autoplay=1&rel=0",
-    poster: "/images/boardroom.jpg",
+    id: "nNVqpZ6UlMA",
+    title: "Don't Start a Business Without This!",
+    tag: "STARTING A BUSINESS",
+    embedUrl: "https://www.youtube-nocookie.com/embed/nNVqpZ6UlMA?autoplay=1&rel=0",
+    poster: "https://i.ytimg.com/vi/nNVqpZ6UlMA/hqdefault.jpg",
+  },
+  {
+    id: "AGpCl5JvcC8",
+    title: "40 Days of Legal & Finance Terms Every Business Owner Should Know",
+    tag: "BUSINESS EDUCATION",
+    embedUrl: "https://www.youtube-nocookie.com/embed/AGpCl5JvcC8?autoplay=1&rel=0",
+    poster: "https://i.ytimg.com/vi/AGpCl5JvcC8/hqdefault.jpg",
   },
 ];
 
@@ -53,7 +61,7 @@ function VideoFacade() {
           <iframe className="absolute inset-0 h-full w-full" src={video.embedUrl} title={video.title} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen />
         ) : (
           <>
-            <img src={video.poster} alt={video.title} className="h-full w-full object-cover opacity-85 transition duration-500" onError={(e) => { e.currentTarget.src = "/images/consultation.jpg"; }} />
+            <img src={video.poster} alt={`YouTube thumbnail: ${video.title}`} className="h-full w-full object-cover opacity-85 transition duration-500" referrerPolicy="strict-origin-when-cross-origin" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#09152a]/90 via-[#09152a]/30 to-transparent" />
             <button onClick={() => setPlaying(true)} aria-label={`Play ${video.title}`} className="group absolute inset-0 flex items-center justify-center">
               <span className="flex size-20 items-center justify-center rounded-full bg-[#d4af37] text-[#172845] shadow-xl transition duration-300 group-hover:scale-110">
@@ -90,7 +98,6 @@ function VideoFacade() {
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [insights, setInsights] = useState<Insight[]>([]);
-  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     fetch("/api/insights")
@@ -98,10 +105,9 @@ export default function Home() {
       .then((data) => {
         if (Array.isArray(data)) setInsights(data);
       })
-      .catch(() => {})
-      .finally(() => setLoaded(true));
+      .catch(() => {});
   }, []); return <LazyMotion features={domAnimation}><main className="overflow-hidden bg-[#f7f4ed] text-[#1b2a4a]">
-  <header className="relative z-30 mx-auto flex max-w-7xl items-center justify-between px-5 py-5 sm:px-8 lg:px-10"><a href="#home" className="flex items-center gap-3" aria-label="LK Corporate Consult home"><span className="grid size-10 place-items-center rounded-full bg-[#1b2a4a] font-serif text-lg font-bold text-[#d4af37]">LK</span><span className="leading-tight"><strong className="block font-serif text-base tracking-tight">LK Corporate</strong><span className="text-[10px] font-bold tracking-[0.19em] text-[#647086]">CONSULT</span></span></a><nav className="hidden items-center gap-7 text-sm font-semibold text-[#42516b] lg:flex">{["Home", "About", "Services", "Insights", "Contact"].map((item) => <a className="transition hover:text-[#b18a17]" href={`#${item.toLowerCase()}`} key={item}>{item}</a>)}</nav><a href="#contact" className="hidden rounded-full bg-[#d4af37] px-5 py-3 text-sm font-bold text-[#1b2a4a] transition hover:-translate-y-0.5 hover:bg-[#e1c25f] lg:block">Book Consultation</a><button onClick={() => setMenuOpen(!menuOpen)} className="grid size-11 place-items-center rounded-full border border-[#1b2a4a]/15 lg:hidden" aria-label="Toggle navigation">{menuOpen ? <X /> : <Menu />}</button>{menuOpen && <nav className="absolute left-5 right-5 top-[76px] rounded-3xl border border-[#1b2a4a]/10 bg-[#fcfaf5] p-5 shadow-xl lg:hidden">{["Home", "About", "Services", "Insights", "Contact"].map((item) => <a onClick={() => setMenuOpen(false)} className="block border-b border-[#1b2a4a]/10 py-3 font-semibold last:border-0" href={`#${item.toLowerCase()}`} key={item}>{item}</a>)}<a href="#contact" className="mt-3 block rounded-full bg-[#d4af37] px-4 py-3 text-center text-sm font-bold">Book Consultation</a></nav>}</header>
+  <header className="sticky top-0 z-30 border-b border-[#1b2a4a]/5 bg-[#f7f4ed]/95 shadow-sm shadow-[#1b2a4a]/5 backdrop-blur-xl"><div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8 lg:px-10"><a href="#home" className="flex items-center gap-3" aria-label="LK Corporate Consult home"><Image src="/brand/lk-mark.png" alt="LK Corporate Consult logo" width={44} height={44} priority className="size-11 rounded-full border border-[#d4af37]/50 object-cover" /><span className="leading-tight"><strong className="block font-serif text-base tracking-tight">Corporate</strong><span className="text-[10px] font-bold tracking-[0.19em] text-[#647086]">CONSULT</span></span></a><nav className="hidden items-center gap-7 text-sm font-semibold text-[#42516b] lg:flex">{["Home", "About", "Services", "Insights", "Contact"].map((item) => <a className="transition hover:text-[#b18a17]" href={`#${item.toLowerCase()}`} key={item}>{item}</a>)}</nav><a href="#contact" className="hidden rounded-full bg-[#d4af37] px-5 py-3 text-sm font-bold text-[#1b2a4a] transition hover:-translate-y-0.5 hover:bg-[#e1c25f] lg:block">Book Consultation</a><button onClick={() => setMenuOpen(!menuOpen)} className="grid size-11 place-items-center rounded-full border border-[#1b2a4a]/15 lg:hidden" aria-label="Toggle navigation">{menuOpen ? <X /> : <Menu />}</button>{menuOpen && <nav className="absolute left-5 right-5 top-[76px] rounded-3xl border border-[#1b2a4a]/10 bg-[#fcfaf5] p-5 shadow-xl lg:hidden">{["Home", "About", "Services", "Insights", "Contact"].map((item) => <a onClick={() => setMenuOpen(false)} className="block border-b border-[#1b2a4a]/10 py-3 font-semibold last:border-0" href={`#${item.toLowerCase()}`} key={item}>{item}</a>)}<a href="#contact" className="mt-3 block rounded-full bg-[#d4af37] px-4 py-3 text-center text-sm font-bold">Book Consultation</a></nav>}</div></header>
   <section id="home" className="relative mx-auto max-w-7xl px-5 pb-14 pt-10 sm:px-8 sm:pb-20 lg:px-10 lg:pt-20"><div className="absolute -right-28 top-0 size-[32rem] rounded-full border border-[#d4af37]/30" /><div className="absolute -right-14 top-14 size-[25rem] rounded-full border border-[#d4af37]/20" /><div className="relative grid items-end gap-12 lg:grid-cols-[1.08fr_.92fr]"><div><Reveal><p className="mb-7 flex items-center gap-2 text-xs font-bold tracking-[0.17em] text-[#9e7a16]"><span className="h-px w-8 bg-[#d4af37]" />CORPORATE ADVISORY · ABUJA, NIGERIA</p></Reveal><Reveal delay={0.08}><h1 className="max-w-3xl font-serif text-5xl leading-[.98] tracking-[-0.045em] text-[#172845] sm:text-6xl lg:text-7xl">Simplifying corporate compliance.<br /><em className="font-normal text-[#a47c10]">Supporting business growth.</em></h1></Reveal><Reveal delay={0.16}><p className="mt-7 max-w-xl text-base leading-8 text-[#536078] sm:text-lg">Expert corporate, CAC regulatory, legal, and business advisory services tailored for Nigerian entrepreneurs and growing companies.</p><div className="mt-9 flex flex-wrap gap-3"><a href="#contact" className="group inline-flex items-center gap-2 rounded-full bg-[#d4af37] px-6 py-3.5 font-bold text-[#172845] transition hover:-translate-y-0.5 hover:bg-[#e1c25f]">Book a Consultation <ArrowRight className="size-4 transition group-hover:translate-x-1" /></a><a href="#services" className="inline-flex items-center gap-2 rounded-full border border-[#1b2a4a]/40 px-6 py-3.5 font-bold transition hover:border-[#1b2a4a] hover:bg-white/60">Explore Services <ArrowDownRight className="size-4" /></a></div></Reveal></div><Reveal delay={0.18} className="relative mx-auto w-full max-w-md lg:max-w-none"><div className="relative aspect-[.83] overflow-hidden rounded-t-[12rem] rounded-bl-[2rem] rounded-br-[2rem] bg-[#d9d4c7]"><Image src="/images/boardroom.jpg" alt="LK Corporate Consult advisory meeting" fill priority sizes="(max-width: 1024px) 90vw, 40vw" className="object-cover object-[58%_center]" /><div className="absolute inset-0 bg-gradient-to-t from-[#1b2a4a]/60 via-transparent to-transparent" /></div><div className="absolute -bottom-6 -left-3 rounded-2xl border border-white/60 bg-[#fcfaf5]/95 p-4 shadow-xl backdrop-blur sm:-left-8"><div className="flex items-center gap-3"><BadgeCheck className="size-8 text-[#b38b18]" /><p className="max-w-[11rem] text-xs font-semibold leading-5">Trusted across <strong>200+ CAC registrations</strong> & post-incorporation applications.</p></div></div></Reveal></div></section>
   <section id="about" className="bg-[#172845] px-5 py-20 text-[#f7f4ed] sm:px-8 lg:px-10 lg:py-28"><div className="mx-auto grid max-w-7xl gap-12 lg:grid-cols-[.85fr_1.15fr]"><Reveal><p className="text-xs font-bold tracking-[.2em] text-[#d4af37]">THE FIRM</p><h2 className="mt-5 max-w-sm font-serif text-4xl leading-tight sm:text-5xl">Guidance that makes the complex feel clear.</h2></Reveal><Reveal delay={0.1}><p className="max-w-2xl text-lg leading-8 text-[#d7dce5]">Built on a track record of thoughtful, client-first corporate guidance, LK Corporate Consult is the next chapter of Sparkle Legal Consult. We pair technical detail with plain-speaking advice, giving founders the confidence to move from ambition to action.</p><div className="mt-12 grid gap-4 sm:grid-cols-3">{[["01", "Professionalism"], ["02", "Integrity"], ["03", "Efficiency"]].map(([number, label]) => <div className="border-t border-[#d4af37]/60 pt-4" key={label}><span className="text-xs font-bold text-[#d4af37]">{number}</span><p className="mt-6 font-serif text-2xl">{label}</p></div>)}</div></Reveal></div></section>
   <section id="services" className="mx-auto max-w-7xl px-5 py-20 sm:px-8 lg:px-10 lg:py-28"><Reveal className="flex flex-col justify-between gap-7 md:flex-row md:items-end"><div><p className="text-xs font-bold tracking-[.2em] text-[#9e7a16]">WHAT WE DO</p><h2 className="mt-4 max-w-2xl font-serif text-4xl leading-tight tracking-tight sm:text-5xl">The right expertise, at every stage of your business.</h2></div><p className="max-w-xs text-sm leading-6 text-[#5d687b]">From first registration to the filings that keep you moving, our work is built around momentum.</p></Reveal><div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">{services.map(({ icon: Icon, eyebrow, title, copy }, i) => <Reveal delay={(i % 3) * .07} key={title}><article className="group h-full rounded-[1.5rem] border border-[#1b2a4a]/10 bg-[#fcfaf5] p-6 transition duration-300 hover:-translate-y-1 hover:border-[#d4af37]/60 hover:shadow-xl hover:shadow-[#1b2a4a]/10"><div className="flex items-start justify-between"><span className="grid size-12 place-items-center rounded-2xl bg-[#e9e2d2] text-[#1b2a4a]"><Icon className="size-5" /></span><MoveUpRight className="size-5 text-[#b38b18] opacity-0 transition group-hover:opacity-100" /></div><p className="mt-9 text-[10px] font-bold tracking-[.15em] text-[#9e7a16]">{eyebrow}</p><h3 className="mt-3 font-serif text-2xl">{title}</h3><p className="mt-3 text-sm leading-6 text-[#58647a]">{copy}</p></article></Reveal>)}</div></section>
