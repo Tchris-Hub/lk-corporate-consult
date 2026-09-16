@@ -13,7 +13,7 @@ export async function createSession() {
 export async function hasAdminSession() {
   try { const token = (await cookies()).get(name)?.value; if (!token || !process.env.AUTH_SECRET) return false; const result = await jwtVerify(token, key()); return result.payload.role === "admin"; } catch { return false; }
 }
-export async function requireAdmin() { if (!(await hasAdminSession())) redirect("/admin/login"); }
+export async function requireAdmin() { if (!(await hasAdminSession())) redirect("/lana/login"); }
 export async function clearSession() { (await cookies()).delete(name); }
 export function validPassword(password: string) {
   const value = process.env.ADMIN_PASSWORD_HASH;

@@ -19,6 +19,7 @@ model Post {
   excerpt     String
   content     String     @db.Text
   category    String
+  imageUrl    String?
   status      PostStatus @default(DRAFT)
   publishedAt DateTime?
   createdAt   DateTime   @default(now())

@@ -1,5 +1,0 @@
-import { NextResponse } from "next/server";
-import { hasAdminSession } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
-export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) { if (!(await hasAdminSession())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); const { id } = await params; const body = await request.json(); const status = body.status === "PUBLISHED" ? "PUBLISHED" : "DRAFT"; const post = await prisma.post.update({ where: { id }, data: { title: String(body.title).trim(), slug: String(body.slug).trim(), excerpt: String(body.excerpt).trim(), content: String(body.content).trim(), category: String(body.category).trim(), status, publishedAt: status === "PUBLISHED" ? new Date() : null } }); return NextResponse.json({ post }); }
-export async function DELETE(_: Request, { params }: { params: Promise<{ id: string }> }) { if (!(await hasAdminSession())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 }); const { id } = await params; await prisma.post.delete({ where: { id } }); return NextResponse.json({ ok: true }); }
