@@ -34,3 +34,15 @@ model Subscriber {
   source    String   @default("website")
   active    Boolean  @default(true)
 }
+
+model Review {
+  id          String   @id @default(cuid())
+  clientName  String
+  role        String?
+  company     String?
+  content     String   @db.Text
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@index([published, createdAt])
+}
