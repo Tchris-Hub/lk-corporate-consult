@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { DM_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import SiteEnhancements from "./site-enhancements";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -19,11 +20,8 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html
-      lang="en"
-      className={`${dmSans.variable} ${playfair.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang="en" className={`${dmSans.variable} ${playfair.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col">{children}<SiteEnhancements /></body>
     </html>
   );
 }
