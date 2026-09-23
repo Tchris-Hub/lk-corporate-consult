@@ -4,7 +4,7 @@ import { NEWSLETTER_LIMIT, sendNewsletterMessage } from "../../lib/newsletter";
 export const config = { background: true };
 
 export default async function handler() {
-  if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
+  if (!(process.env.GMAIL_USER || process.env.ADMIN_EMAIL) || !process.env.GMAIL_APP_PASSWORD) {
     console.warn("Newsletter worker skipped: GMAIL_USER/GMAIL_APP_PASSWORD is not configured.");
     return;
   }
