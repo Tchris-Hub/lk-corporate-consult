@@ -35,3 +35,8 @@ The public knowledge centre is available at `/blog`, with individual SEO-ready a
 5. Add the same environment variables to Netlify and deploy.
 
 Use the pooled URL for `DATABASE_URL` in the app and the direct URL for migrations. The project deliberately pins Prisma ORM 7.10.0, the current stable GA version, rather than the Prisma 8 release candidate.
+
+
+## Newsletter email delivery
+
+The site stores opted-in newsletter subscribers and queues alerts when an article is published. Netlify runs the delivery queue in the background and retries pending deliveries hourly. The sender uses Gmail SMTP through Nodemailer. By default, the existing `ADMIN_EMAIL` is used as the Gmail sender, so the only new secret required for this setup is `GMAIL_APP_PASSWORD` (the 16-character Google App Password for that Gmail account). If the sender account differs from `ADMIN_EMAIL`, set `GMAIL_USER` in Netlify as well. `GMAIL_DAILY_LIMIT` is optional and defaults to 500 as a conservative site safety budget.
