@@ -17,7 +17,7 @@ export default function NewsletterPopup() {
     try {
       const seen = Number(localStorage.getItem(STORAGE_KEY) || 0);
       if (!seen || Date.now() - seen > REMINDER_DAYS * 86400000) {
-        const timer = window.setTimeout(() => setOpen(true), 350);
+        const timer = window.setTimeout(() => setOpen(true), 7000);
         return () => window.clearTimeout(timer);
       }
     } catch {
