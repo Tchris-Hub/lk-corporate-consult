@@ -25,6 +25,7 @@ model Post {
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   @@index([status, publishedAt])
+  newsletterDeliveries NewsletterDelivery[]
 }
 
 model Subscriber {
@@ -33,6 +34,7 @@ model Subscriber {
   consentAt DateTime @default(now())
   source    String   @default("website")
   active    Boolean  @default(true)
+  newsletterDeliveries NewsletterDelivery[]
 }
 
 model Review {
@@ -45,4 +47,20 @@ model Review {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   @@index([published, createdAt])
+}
+
+model NewsletterDelivery {
+  id           String     @id @default(cuid())
+  postId       String
+  subscriberId String
+  status       String     @default("PENDING")
+  sentAt       DateTime?
+  error        String?    @db.Text
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+  post         Post       @relation(fields: [postId], references: [id], onDelete: Cascade)
+  subscriber   Subscriber @relation(fields: [subscriberId], references: [id], onDelete: Cascade)
+  @@unique([postId, subscriberId])
+  @@index([status, createdAt])
+  @@index([sentAt])
 }
