@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import { SignJWT, jwtVerify } from "jose";
 
-const siteUrl = () => process.env.NEXT_PUBLIC_SITE_URL || "https://lk-corporate-consult.netlify.app";
+const siteUrl = () => process.env.URL || process.env.NEXT_PUBLIC_SITE_URL || "https://lk-corporate-consult.netlify.app";
 export const NEWSLETTER_LIMIT = Number(process.env.GMAIL_DAILY_LIMIT || 500);
 
 function secretKey() {
@@ -9,7 +9,7 @@ function secretKey() {
 }
 
 export function createTransporter() {
-  const user = process.env.GMAIL_USER;
+  const user = process.env.GMAIL_USER || process.env.ADMIN_EMAIL;
   const pass = process.env.GMAIL_APP_PASSWORD;
   if (!user || !pass) return null;
   return nodemailer.createTransport({
@@ -49,7 +49,7 @@ export async function sendNewsletterMessage(to: string, post: { title: string; e
   const unsubscribeToken = await createUnsubscribeToken(subscriberId);
   const unsubscribeUrl = absoluteUrl("/api/newsletter/unsubscribe?token=" + encodeURIComponent(unsubscribeToken));
   const articleUrl = absoluteUrl("/blog/" + post.slug);
-  const from = process.env.GMAIL_USER;
+  const from = process.env.GMAIL_USER || process.env.ADMIN_EMAIL;
   const safeTitle = post.title.replace(/[<>]/g, "");
   const safeExcerpt = post.excerpt.replace(/[<>]/g, "");
 
