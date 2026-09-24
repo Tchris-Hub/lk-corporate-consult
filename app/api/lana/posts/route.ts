@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { hasAdminSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
-const slugify = (value: string) => value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+import { slugify } from "@/lib/slug";
 
 export async function POST(request: Request) {
   if (!(await hasAdminSession())) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -15,6 +15,7 @@ export async function POST(request: Request) {
   if (!title || !excerpt || !content || !category) return NextResponse.json({ error: "Complete every field before saving." }, { status: 400 });
   const status = body.status === "PUBLISHED" ? "PUBLISHED" : "DRAFT";
   const baseSlug = slugify(body.slug || title);
+  if (!baseSlug) return NextResponse.json({ error: "Add a title that can be used to create the article URL." }, { status: 400 });
   const count = await prisma.post.count({ where: { slug: { startsWith: baseSlug } } });
   const post = await prisma.post.create({ data: { title, slug: count ? `${baseSlug}-${count + 1}` : baseSlug, excerpt, content, category, imageUrl, status, publishedAt: status === "PUBLISHED" ? new Date() : null } });
   if (status === "PUBLISHED") {
